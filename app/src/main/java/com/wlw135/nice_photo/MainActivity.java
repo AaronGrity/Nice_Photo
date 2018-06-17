@@ -16,13 +16,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PictureLoader loader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ShowBtn = (Button) findViewById(R.id.show_btn);
-        ShowImg = (ImageView)findViewById(R.id.show_Img);
-        ShowBtn.setOnClickListener(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loader = new PictureLoader();
         initPicture();
+        initControl();
+    }
+
+    private void initControl() {
+        ShowBtn = (Button) findViewById(R.id.show_btn);
+        ShowImg = (ImageView)findViewById(R.id.show_Img);
+        ShowBtn.setOnClickListener(this);
     }
 
     private void initPicture() {

@@ -14,7 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URI;
+
 import java.net.URL;
 import java.util.logging.LogRecord;
 /**
@@ -22,25 +22,25 @@ import java.util.logging.LogRecord;
  */
 
 public class PictureLoader {
-    private ImageView IoadImg;
+    private ImageView LoadImg;
     private String imgUrl;
     private byte[] picByte;
-android.os.Handler handler =new Handler(){
-    @Override
-    public void handleMessage(Message msg){
-        super.handleMessage(msg);
-        if (msg.what == 0x123){
-            if (picByte !=null){
-                Bitmap bitmap = BitmapFactory.decodeByteArray(picByte, 0,picByte.length);
-                IoadImg.setImageBitmap(bitmap);
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            super.handleMessage(msg);
+            if (msg.what == 0x123) {
+                if (picByte != null) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(picByte, 0, picByte.length);
+                    LoadImg.setImageBitmap(bitmap);
+                }
             }
         }
-    }
-};
-    public void load(ImageView loadImg, String imgUrl) {
-        this.IoadImg = loadImg;
+    };
+    public void load(ImageView LoadImg, String imgUrl) {
+        this.LoadImg = LoadImg;
         this.imgUrl = imgUrl;
-        Drawable drawable = loadImg.getDrawable();
+        Drawable drawable = LoadImg.getDrawable();
         if(drawable != null && drawable instanceof BitmapDrawable) {
             Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
             if(bitmap != null && !bitmap.isRecycled()) {
