@@ -54,12 +54,12 @@ public class PictureLoader {
         @Override
         public void run() {
             try {
-                URL url = new URL(imgUrl);
+                URL url = new URL(imgUrl);//传入URL的实例
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setReadTimeout(10000);
+                conn.setRequestMethod("GET");//从服务器获取数据
+                conn.setReadTimeout(10000);//设置一下连接超时
                 if (conn.getResponseCode() == 200) {
-                    InputStream in = conn.getInputStream();
+                    InputStream in = conn.getInputStream();//获取服务器返回的输入流
                     ByteArrayOutputStream out = new ByteArrayOutputStream();
                     byte[] bytes = new byte[1024];
                     int length = -1;
