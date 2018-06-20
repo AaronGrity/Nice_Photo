@@ -94,23 +94,23 @@ public class SisterApi {
     public ArrayList<Sister> fetchSister(int count, int page){
         ArrayList<Sister> sisters = new ArrayList<>();
         String fetchUrl = BASE_URL + count + "/" + page;
-        OkHttpClient okHttpClient  = new OkHttpClient.Builder()
+        OkHttpClient okHttpClient  = new OkHttpClient.Builder()//创建了一个OkHttpClient的实例
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10,TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
                 .build();
-        Request request = new Request.Builder()
+        Request request = new Request.Builder()//request的实例
                 .url(fetchUrl)//请求的url
                 .get()
                 .build();
 
         //创建/Call
-        Call call = okHttpClient.newCall(request);
+        Call call = okHttpClient.newCall(request);//创建一个call的实例
         //加入队列 异步操作
             //请求错误回调方法
             try {
-                             Response response = call.execute();
-                             picStr=response.body().string().toString();
+                             Response response = call.execute();//发送他请求并且获取服务器返回的数据
+                             picStr=response.body().string().toString();//得到具体的内容，以防万一先转换为字符粗昂
                          } catch (IOException e) {
                              e.printStackTrace();
                          }

@@ -84,4 +84,7 @@ public class Sister {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setUsed(int anInt) {
+    }
 }

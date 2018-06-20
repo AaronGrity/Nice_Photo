@@ -43,7 +43,7 @@ public class PictureLoader {
         Drawable drawable = LoadImg.getDrawable();
         if(drawable != null && drawable instanceof BitmapDrawable) {
             Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-            if(bitmap != null && !bitmap.isRecycled()) {
+            if(bitmap != null && !bitmap.isRecycled()) {//判断位图内存是否已释放
                 bitmap.recycle();
             }
         }
