@@ -1,5 +1,9 @@
 package com.wlw135.nice_photo;
 
+/**
+ * Created by Administrator on 2018/6/18.
+ */
+
 import android.app.Notification;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,7 +47,7 @@ public class PictureLoader {
         Drawable drawable = LoadImg.getDrawable();
         if(drawable != null && drawable instanceof BitmapDrawable) {
             Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-            if(bitmap != null && !bitmap.isRecycled()) {//判断位图内存是否已释放
+            if(bitmap != null && !bitmap.isRecycled()) {
                 bitmap.recycle();
             }
         }
@@ -54,12 +58,12 @@ public class PictureLoader {
         @Override
         public void run() {
             try {
-                URL url = new URL(imgUrl);//传入URL的实例
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");//从服务器获取数据
-                conn.setReadTimeout(10000);//设置一下连接超时
+                URL url = new URL(imgUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setReadTimeout(10000);
                 if (conn.getResponseCode() == 200) {
-                    InputStream in = conn.getInputStream();//获取服务器返回的输入流
+                    InputStream in = conn.getInputStream();
                     ByteArrayOutputStream out = new ByteArrayOutputStream();
                     byte[] bytes = new byte[1024];
                     int length = -1;
@@ -78,4 +82,3 @@ public class PictureLoader {
         }
     };
 }
-

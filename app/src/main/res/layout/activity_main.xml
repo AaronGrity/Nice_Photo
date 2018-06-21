@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
+            android:background="@color/colorBlue"
             android:text="上一张"/>
         <Button
             android:id="@+id/upd_btn"
@@ -30,12 +31,14 @@
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
+            android:background="@color/colorBlue"
             android:text="换一批"/>
         <Button
             android:id="@+id/show_btn"
             android:layout_height="80dp"
             android:layout_width="match_parent"
             android:layout_weight="1"
+            android:background="@color/colorBlue"
             android:text="下一张" />
     </LinearLayout>
     </LinearLayout>

@@ -1,6 +1,7 @@
 package com.wlw135.nice_photo;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -21,12 +22,16 @@ public class DBControl {
     private static DBControl dbControl;
     private DBHelper dbHelper;
     private SQLiteDatabase db;
+    public DBControl(Context context){
+        dbHelper =new DBHelper(context);
+    }
+/*
     private DBControl(){
         dbHelper =new DBHelper(app.getContext());
     }
 
 
-    /** 单例 */
+
     public static DBControl getInstance() {
         if(dbControl == null) {
             synchronized (DBControl.class) {
@@ -36,7 +41,7 @@ public class DBControl {
             }
         }
         return dbControl;
-    }
+    }*/
 
     /** 插入一个妹子 */
     public void insertSister(Sister sister) {
@@ -183,6 +188,7 @@ public class DBControl {
 
     /** 获得可读数据库的方法 */
     private SQLiteDatabase getReadableDB() {
+
         return dbHelper.getReadableDatabase();
     }
 

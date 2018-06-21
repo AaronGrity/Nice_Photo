@@ -16,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import okhttp3.internal.Util;
+;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button showBtn;
@@ -34,9 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+      //  mdbHelper=DBControl.getInstance();
+        mdbHelper=new DBControl(this);
         sisterApi = new SisterApi();
         loader = new PictureLoader();
-        mdbHelper=DBControl.getInstance();
         initData();
         initUI();
     }
@@ -48,23 +49,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initUI() {
         showBtn = (Button) findViewById(R.id.show_btn);
-        preBtn.setOnClickListener(this);
+        preBtn = (Button) findViewById(R.id.pre_btn);
         refreshBtn = (Button) findViewById(R.id.upd_btn);
         showImg = (ImageView) findViewById(R.id.show_Img);
-        preBtn= (Button) findViewById(R.id.pre_btn);
+        preBtn.setOnClickListener(this);
         showBtn.setOnClickListener(this);
         refreshBtn.setOnClickListener(this);
+
     }
 
     @Override public void onClick(View v) {
         switch (v.getId()) {
             case R.id.show_btn:
+
                 if(data != null && !data.isEmpty()) {
-                    if (curPos > 9) {
+                    if (curPos > 8) {
                         curPos = 0;
                     }
-                    loader.load(showImg, data.get(curPos).getUrl());
                     curPos++;
+                    loader.load(showImg, data.get(curPos).getUrl());
+                    preBtn.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.upd_btn:
@@ -74,14 +78,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.pre_btn:
                 --curPos;
-                if (curPos == 0) {
+                if(curPos==0){
                     preBtn.setVisibility(View.INVISIBLE);
+                }
+
+                if (curPos < 0) {
+                    curPos=0;
+                    return;
                 }
                 if (curPos == data.size() - 1) {
                     sisterTask = new SisterTask(page);
                     sisterTask.execute();
                 }
-
+                loader.load(showImg, data.get(curPos).getUrl());
+                break;
         }
     }
 
@@ -119,6 +129,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(sisters);
             data.clear();
             data.addAll(sisters);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(data != null && !data.isEmpty()) {
+                        loader.load(showImg, data.get(curPos).getUrl());
+                        preBtn.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
         }
     }
 
